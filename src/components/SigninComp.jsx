@@ -14,6 +14,12 @@ const SigninComp = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (localStorage.getItem("access_token")) {
+      navigate("/todo");
+    }
+  });
+
+  useEffect(() => {
     emailCheck(email);
     passwordCheck(pw);
   }, [email, pw]);
@@ -71,6 +77,7 @@ const SigninComp = () => {
       .then((response) => {
         if (response.status === 200) {
           localStorage.setItem("access_token", response.data.access_token);
+          navigate("/todo");
         }
       })
       .catch((error) => {

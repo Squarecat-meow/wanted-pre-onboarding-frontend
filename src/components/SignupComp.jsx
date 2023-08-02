@@ -14,6 +14,12 @@ const SignupComp = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (localStorage.getItem("access_token")) {
+      navigate("/todo");
+    }
+  });
+
+  useEffect(() => {
     emailCheck(email);
     passwordCheck(pw);
   }, [email, pw]);
