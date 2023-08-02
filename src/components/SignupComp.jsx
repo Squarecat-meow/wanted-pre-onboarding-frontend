@@ -1,4 +1,6 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SignupComp = () => {
   const [email, setEmail] = useState("");
@@ -7,15 +9,20 @@ const SignupComp = () => {
   const [emailChecked, setEmailChecked] = useState(false);
   const [pwChecked, setPwChecked] = useState(false);
 
-  const [loginForm, setLoginForm] = useState({
-    emailAddr: "",
-    password: "",
-  });
+  const [loginForm, setLoginForm] = useState("");
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     emailCheck(email);
     passwordCheck(pw);
-  }, [email, pw, loginForm]);
+  }, [email, pw]);
+
+  useEffect(() => {
+    if (loginForm !== "") {
+      handleSignup(loginForm);
+    }
+  }, [loginForm]);
 
   const emailCheck = (e) => {
     const emailRegEx = /[@]/;
@@ -42,14 +49,40 @@ const SignupComp = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     setLoginForm({
-      emailAddr: email,
+      email: email,
       password: pw,
     });
+  };
+
+  const handleSignup = (loginForm) => {
+    axios
+      .post(
+        "https://www.pre-onboarding-selection-task.shop/auth/signup",
+        {
+          email: loginForm.email,
+          password: loginForm.password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response);
+        if (response.status === 201) {
+          navigate("/signin");
+        }
+      })
+      .catch((error) => {
+        alert(error.request.responseText);
+      });
   };
 
   return (
     <div className="flex justify-center w-full">
       <div className="w-96 h-96">
+        <h1 className="text-4xl font-bold">회원가입</h1>
         <form onSubmit={onSubmit} className="flex flex-col">
           <label className="text-sm text-gray-500">Email</label>
           <input
