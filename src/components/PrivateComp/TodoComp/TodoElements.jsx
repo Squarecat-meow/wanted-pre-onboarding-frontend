@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import TodoModifyElements from "./TodoModifyElements";
 
-const TodoElements = ({ checked, todos, id, userId }) => {
+const TodoElements = ({ checked, todos, id }) => {
+  const [modify, setModify] = useState(false);
+
   const token = localStorage.getItem("access_token");
 
   const handleDeleteTodos = () => {
@@ -21,25 +24,30 @@ const TodoElements = ({ checked, todos, id, userId }) => {
 
   return (
     <div>
-      <li>
-        <label>
-          <input type="checkbox" defaultChecked={checked} readOnly />
-          <span>{todos}</span>
-        </label>
-        <button
-          data-testid="modify-button"
-          className="border border-solid rounded-md border-slate-500 bg-slate-200 hover:bg-slate-300"
-        >
-          수정
-        </button>
-        <button
-          data-testid="delete-button"
-          className="border border-solid rounded-md border-slate-500 bg-slate-200 hover:bg-slate-300"
-          onClick={handleDeleteTodos}
-        >
-          삭제
-        </button>
-      </li>
+      {modify ? (
+        <TodoModifyElements value={todos} setModify={setModify} />
+      ) : (
+        <li>
+          <label>
+            <input type="checkbox" defaultChecked={checked} readOnly />
+            <span>{todos}</span>
+          </label>
+          <button
+            data-testid="modify-button"
+            className="px-1 ml-2 border border-solid rounded-md border-slate-500 bg-slate-200 hover:bg-slate-300"
+            onClick={() => setModify(true)}
+          >
+            수정
+          </button>
+          <button
+            data-testid="delete-button"
+            className="px-1 ml-2 border border-solid rounded-md border-slate-500 bg-slate-200 hover:bg-slate-300"
+            onClick={handleDeleteTodos}
+          >
+            삭제
+          </button>
+        </li>
+      )}
     </div>
   );
 };

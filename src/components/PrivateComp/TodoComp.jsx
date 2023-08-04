@@ -9,6 +9,10 @@ const TodoComp = () => {
   const token = localStorage.getItem("access_token");
 
   useEffect(() => {
+    getTodos();
+  }, [todos]);
+
+  const getTodos = () => {
     axios
       .get("https://www.pre-onboarding-selection-task.shop/todos", {
         headers: {
@@ -21,9 +25,9 @@ const TodoComp = () => {
       .catch((error) => {
         console.log(error);
       });
-  }, [todos]);
+  };
 
-  const axiosAddTodos = (newTodos) => {
+  const createTodo = (newTodos) => {
     axios
       .post(
         "https://www.pre-onboarding-selection-task.shop/todos",
@@ -41,11 +45,10 @@ const TodoComp = () => {
       )
       .then((response) => {
         console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
       });
-  };
-
-  const handleAddTodos = () => {
-    axiosAddTodos(newTodos);
   };
 
   return (
@@ -59,12 +62,12 @@ const TodoComp = () => {
       <button
         data-testid="new-todo-add-button"
         className="w-24 px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
-        onClick={handleAddTodos}
+        onClick={() => createTodo(newTodos)}
       >
         추가
       </button>
-      {todos.map((todos, i) => (
-        <div key={i}>
+      {todos.map((todos) => (
+        <div key={todos.id}>
           <TodoElements
             checked={todos.isCompleted}
             todos={todos.todo}
