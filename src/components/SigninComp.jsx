@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const SigninComp = () => {
   const [email, setEmail] = useState("");
@@ -118,14 +118,24 @@ const SigninComp = () => {
               비밀번호는 8자 이상이어야 합니다.
             </span>
           )}
-          <button
-            data-testid="signin-button"
-            disabled={!(emailChecked && pwChecked)}
-            type="submit"
-            className="w-24 px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            로그인
-          </button>
+          <div className="flex justify-between">
+            <button
+              data-testid="signin-button"
+              disabled={!(emailChecked && pwChecked)}
+              type="submit"
+              className="w-24 px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              로그인
+            </button>
+            <Link to="/signup">
+              <button
+                type="submit"
+                className="w-24 px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                회원가입
+              </button>
+            </Link>
+          </div>
         </form>
       </div>
     </div>

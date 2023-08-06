@@ -66,7 +66,7 @@ const TodoElements = ({ checked, todos, id }) => {
               readOnly
               onChange={(e) => updateTodo(e.target.checked)}
             />
-            <span>{todos}</span>
+            <span className="ml-2">{todos}</span>
           </label>
           <button
             data-testid="modify-button"

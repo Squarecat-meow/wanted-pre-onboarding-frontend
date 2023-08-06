@@ -46,12 +46,21 @@ const TodoModifyElements = ({ value, setModify, id, checked }) => {
             data-testid="modify-input"
             defaultValue={value}
             onChange={(e) => setNewModify(e.target.value)}
+            className="ml-2"
           />
         </label>
-        <button data-testid="submit-button" onClick={updateTodo}>
+        <button
+          data-testid="submit-button"
+          onClick={updateTodo}
+          className="px-1 ml-2 border border-solid rounded-md border-slate-500 bg-slate-200 hover:bg-slate-300"
+        >
           제출
         </button>
-        <button data-testid="cancel-button" onClick={() => setModify(false)}>
+        <button
+          data-testid="cancel-button"
+          onClick={() => setModify(false)}
+          className="px-1 ml-2 border border-solid rounded-md border-slate-500 bg-slate-200 hover:bg-slate-300"
+        >
           취소
         </button>
       </li>

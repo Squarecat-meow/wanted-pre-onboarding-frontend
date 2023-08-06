@@ -53,7 +53,7 @@ const TodoComp = () => {
 
   return (
     <div>
-      <h1 className="mb-5 text-4xl font-bold">TodoComp</h1>
+      <h1 className="mb-5 text-4xl font-bold">할 일 목록</h1>
       <input
         data-testid="new-todo-input"
         className="px-3 py-2 mb-3 leading-tight text-gray-700 border rounded-xl drop-shadow-md border-1 border-slate-400 focus:outline-1 focus:shadow-outline"
@@ -61,13 +61,13 @@ const TodoComp = () => {
       />
       <button
         data-testid="new-todo-add-button"
-        className="w-24 px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700"
+        className="w-24 px-4 py-2 ml-2 font-bold text-white transition bg-blue-500 rounded-full hover:bg-blue-700"
         onClick={() => createTodo(newTodos)}
       >
         추가
       </button>
       {todos.map((todos) => (
-        <div key={todos.id}>
+        <div key={todos.id} className="mb-2">
           <TodoElements
             checked={todos.isCompleted}
             todos={todos.todo}

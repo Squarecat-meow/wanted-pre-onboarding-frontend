@@ -8,7 +8,7 @@ import TodoComp from "./components/PrivateComp/TodoComp";
 
 function App() {
   return (
-    <div className="App">
+    <div className="flex justify-center">
       <Routes>
         <Route path="/" element={<MainComp />} />
         <Route path="/signin" element={<SigninComp />} />
